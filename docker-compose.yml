@@ -15,7 +15,7 @@ services:
   geth:
     container_name: geth
     build: geth
-    #command: '--identity ${GETH_NODE} --networkid 2017042099 --datadir "/root/.ethereum/devchain" --unlock 0,1 --password /root/.ethereum/devchain/pw --port "30303" --rpc --rpcport "8544" --rpccorsdomain "*" --rpcaddr="0.0.0.0" --rpcapi "admin,db,eth,miner,net,web3,personal,txpool" --nodiscover --minerthreads=2  --etherbase 0'
+    # command: '--identity ${GETH_NODE} --networkid 2017042099 --datadir "/root/.ethereum/devchain" --unlock 0,1 --password /root/.ethereum/devchain/pw --port "30303" --rpc --rpcport "8544" --rpccorsdomain "*" --rpcaddr="0.0.0.0" --rpcapi "admin,db,eth,miner,net,web3,personal,txpool" --nodiscover --minerthreads=2  --etherbase 0'
     command: '--testnet --syncmode "light" --identity ${GETH_NODE} --datadir "/root/.ethereum/devchain" --unlock 0,1 --password /root/.ethereum/devchain/pw --port "30303" --rpc --rpcport "8544" --rpccorsdomain "*" --rpcaddr="0.0.0.0" --rpcapi "admin,db,eth,miner,net,web3,personal,txpool" --minerthreads=2  --etherbase 0'
     # --fast --mine'
     ports:
@@ -23,8 +23,8 @@ services:
       - "30303:30303"
       - "30303:30303/udp"
     volumes: # blockchain + wallet will be stored here on your host
-      # - geth:/root/.ethereum
-      - ./data:/root/.ethereum
+       - geth:/root/.ethereum
+      # - ./data:/root/.ethereum
 
   truffle:
     container_name: truffle
