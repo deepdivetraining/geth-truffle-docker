@@ -1,6 +1,7 @@
 module.exports = {
   networks: {
     testrpc: {
+      gas: 4612388,
       host: "testrpc",
       port: 8545,
       network_id: "*" // Match any network id
