@@ -20,14 +20,14 @@ More info: you can find an overview of that setup on my blog: https://greg.satos
 ## 0. Prerequisit
 - A linux host, preferable ubuntu 14.x or 16.x. If you are on windows or MAC, please use [docker toolbox](#docker-toolbox) or [Vagrant](#vagrant) --> see in annexes
 - [Docker](#docker) v17+ and [docker-compose](#docker-compose) v1.15+ 
-- This code: `git clone https://github.com/gregbkr/geth-truffle-docker.git devchain && cd devchain`
+- This code: `git clone https://github.com/deepdivetraining/geth-truffle-docker devchain && cd devchain`
 - Create an environment var to declare your geth node name: `echo "export GETH_NODE=<YOUR_NODE_NAME>" >> ~/.profile && source ~/.profile`
 - Check your node name: `echo $GETH_NODE`
 
 ## 1. Run containers
 
 - Run the stack: `docker-compose up -d`
-- Check geth is up and answering locally: `curl -X POST --data '{"jsonrpc":"2.0","method":"eth_syncing","params":[],"id":1}' localhost:8544`
+- Check geth is up and answering locally: `curl -X POST --data '{"jsonrpc":"2.0","method":"eth_syncing","params":[],"id":1}' localhost:8544 --header "Content-Type: application/json"`
 - Check testrpc node is running: `curl -X POST --data '{"jsonrpc":"2.0","method":"eth_syncing","params":[],"id":1}' localhost:8545`
 - Other rpc commands [here](https://github.com/ethereum/wiki/wiki/JSON-RPC#json-rpc-methods)
 
