@@ -1,0 +1,52 @@
+<!--
+ Based on: https://gist.githubusercontent.com/maheshmurthy/f6e96d6b3fff4cd4fa7f892de8a1a1b4/raw/e7e7d4e063c5bdd4fb6bc17d7b75370de42d48ee/index.html
+-->
+<!DOCTYPE html>
+<html>
+<head>
+
+  <title>Let's get -coding- voting!</title>
+
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+
+</head>
+<body class="container">
+
+  <h1>Welcome to your fresh voting machine</h1>
+
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Candidate</th>
+          <th>Votes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Anna</td>
+          <td id="candidate-1"></td>
+        </tr>
+        <tr>
+          <td>Alice</td>
+          <td id="candidate-2"></td>
+        </tr>
+        <tr>
+          <td>Bob</td>
+          <td id="candidate-3"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <input type="text" id="candidate" />
+
+  <a href="#" onclick="voteForCandidate()" class="btn btn-primary">Vote</a>
+
+  <script src="https://cdn.rawgit.com/ethereum/web3.js/develop/dist/web3.js"></script>
+  <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+  <script src="./vote.js"></script>
+
+  </body>
+</html>
