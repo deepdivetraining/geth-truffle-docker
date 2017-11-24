@@ -40,22 +40,22 @@ services:
     image: desmart/testrpc:latest
     ports:
       - "8545:8545"
-    command: '--debug --account="0xaa73b5c98e60d589e71ce7cff59c02f82e12c7ce676ee356da8e058a285ccd61,12345678901234567891234567890123456789123" --account="0x52f3a1fa15405e1d5a68d7774ca45c7a3c7373a66c3c44db94a7f99a22c14d28,12345678901234567891234567890123456789123"'
+    command: '--debug --account="0xaa73b5c98e60d589e71ce7cff59c02f82e12c7ce676ee356da8e058a285ccd61,1000000000000000000000" --account="0x52f3a1fa15405e1d5a68d7774ca45c7a3c7373a66c3c44db94a7f99a22c14d28,1000000000000000000000"'
 
-  netstatsapi: # Collect geth data and send them to remote dashboard (netstatsfront)
-    container_name: netstatsapi
-    image: enettet/ethereum-netstats-api
-    environment:
-      - WS_SERVER=ws://factory.shinit.net:15000
-      #- WS_SERVER=netstatsfront:3000
-      - WS_SECRET=20170420devchain
-      - RPC_HOST=geth
-      - RPC_PORT=8544
-      - INSTANCE_NAME=${GETH_NODE}_node
-      - CONTACT_DETAILS=
-      - NODE_ENV=private
-      - LISTENING_PORT=30303
-      - VERBOSITY=3
+  # netstatsapi: # Collect geth data and send them to remote dashboard (netstatsfront)
+  #   container_name: netstatsapi
+  #   image: enettet/ethereum-netstats-api
+  #   environment:
+  #     - WS_SERVER=ws://factory.shinit.net:15000
+  #     #- WS_SERVER=netstatsfront:3000
+  #     - WS_SECRET=20170420devchain
+  #     - RPC_HOST=geth
+  #     - RPC_PORT=8544
+  #     - INSTANCE_NAME=${GETH_NODE}_node
+  #     - CONTACT_DETAILS=
+  #     - NODE_ENV=private
+  #     - LISTENING_PORT=30303
+  #     - VERBOSITY=3
 
   # netstatsfront: # To display our dashboard locally (in our case, dashboard is already running on http://factory.shinit.net:15000)
   #   container_name: netstatsfront
