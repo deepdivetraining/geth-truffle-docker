@@ -51,15 +51,21 @@ ropsten: testing environment https://ethereum.stackexchange.com/a/13536 </td>
 
 ### Clone the git repository
 
-Clone the git repository that contains a Docker container with geth & truffle:
+Clone the git repository that contains a Docker container with geth & truffle into the directory **deepdive-eth-101-base**
 
-**git clone ****[https://github.com/deepdivetraining/geth-truffle-docke**r](https://github.com/deepdivetraining/geth-truffle-docker)** deepdive-eth-101-base && cd deepdive-eth-101-base**
+ 
+
+**git clone ****[https://github.com/deepdivetraining/geth-truffle-docke**r](https://github.com/deepdivetraining/geth-truffle-docker)** deepdive-eth-101-base **
 
 (copy on a single line)
 
-### Run the docker containers
+Now descend into the new directory
 
-Now **run the docker containers**:
+**cd deepdive-eth-101-base**
+
+### Start the docker containers
+
+Now **start**** the docker containers**:
 
 **docker-compose up -d**
 
@@ -140,27 +146,59 @@ In this mission you will do this in two ways: first using an online wallet to ge
 
 ## Create your wallet
 
-* Go to MyEtherWallet.com, choose a password and create a wallet. This generates a public/private key combination. Save the private key in an encrypted keystore file on disk (can only be unlocked with the password), next **store the private key at a safe location**. Also make a note of your public wallet address. You will be needing these two throughout the exercises. Anyone with access to your private key can spend your Ethers!
+* Open the MyEtherWallet.com website. 
+
+* Select the Ropsten Testnet in the upper left corner
+
+![image alt text](image_1.png)
+
+* Now enter a password and create a new wallet. This generates a public/private key combination. Save the private key in an encrypted keystore file on disk (this file can only be unlocked with the password), next **store the private key at a safe location**. Also make a note of your public wallet address. You will be needing these two throughout the exercises. Anyone with access to your private key can spend your Ethers!
 
 ## Transfer some test Ether (using MyEtherWallet)
 
-Get a paper wallet with test Ether. Sign in into MyEtherWallet with the information from the paper wallet to transfer some of the test Ether to your own wallet. 
+Get a paper wallet with test Ether. Go to "Send Ether & Tokens" on [https://www.myetherwallet.com](https://www.myetherwallet.com/#send-transaction) (Make sure that you are still using the Ropsten Testnet!) and use your private key to unlock your wallet. If all goes well, you should see a non zero balance in your account now.
+
+<table>
+  <tr>
+    <td>QR-codes - The QR codes on the paper wallet can be scanned to import the private key and address of a wallet in your computer. For convenience, you can use https://webqr.com on your laptop to scan the codes. Never use third party sites like this to scan private keys for wallets that contain real currency as this presents a huge security risk! </td>
+  </tr>
+</table>
+
+
+With your unlocked wallet, you can transfer ether to other wallets. Try to can transfer some ether to the wallet that you just created. You can also try send some ether to other participants in the course.
+
+* First, decide how much ether you want to transfer
+
+* Next, generate a transaction. MyEtherwallet will show you the transaction in "raw" form and also the same transaction data after it has been signed with your private key. The latter data will be sent to the mining nodes on the network.
+
+* Finally send and confirm the transaction.
+
+![image alt text](image_2.png)
 
 **While the transaction is being processed:**
 
-* While the transaction is being processed, use http://ropsten.etherscan.io to track the transaction:
+* Copy the transaction id, you can use [http://ropsten.etherscan.io](http://ropsten.etherscan.io) to track the transaction as it is being processed:
 
     * What states does the transaction go through before the ether appears in your wallet?
 
     * Can you track where the coins on your paper wallet originate?
 
-    * What do the following terms mean: block number 
+    * What do you think the following terms mean: block height, gas price, gas limit?
+
+Congratulations! You have just created and executed a transaction on the ethereum blockchain. Take a moment to review the steps that you have taken so far. In the next part of the tutorial you will do the same while using the geth client from the commandline.
+
+<table>
+  <tr>
+    <td>Important: 8545 vs 8544 - After executing the docker-compose up command, you have access to two separate blockchains. At port 8545 you can connect to the Test RPC blockchain (a private blockchain on your computer). At port 8544 you can connect to the Ropsten Test blockchain (a global blockchain). Please ensure that you are connecting to the correct network for the missions that follow.</td>
+  </tr>
+</table>
+
 
 ## Transfer some test Ether (using geth and Test RPC)
 
 Now it is time to take a look at the Ethereum blockchain from the inside. For this you need to start the geth console on the Ropsten testnet. 
 
-	# start geth console (testrpc)
+	# start geth console (Test RPC blockchain)
 
 **docker exec -it geth sh**
 
@@ -269,7 +307,7 @@ First a bit of theory. How is programming on blockchains different from a standa
 
 There has been a lot of debate about the term ‘smart contract’. A smart contract is not smart, and it is not necessarily a contract. Someone [suggested](https://github.com/ethereum/EIPs/issues/66) to rename ‘contract’ with ‘snork’, to prevent confusion. No consensus yet.
 
-![image alt text](image_1.png)
+![image alt text](image_3.png)
 
 *A ***_smart contract _***is a set of promises, specified in digital form, including protocols within which the parties perform on these promises.* ([source](http://www.fon.hum.uva.nl/rob/Courses/InformationInSpeech/CDROM/Literature/LOTwinterschool2006/szabo.best.vwh.net/smart_contracts_2.html))
 
@@ -487,9 +525,13 @@ Congratulations, you’ve successfully compiled your first contract!
 
 The compiledCode variable contains two important fields:
 
-1. **compiledCode.contracts[****'****:Voting****'****].bytecode**= the bytecode that is the result of compiling your Voting.sol source code. This code will be deployed to the blockchain.
+1. **compiledCode.contracts[****'****:Voting****'****].bytecode**
 
-2. **compiledCode.contracts[':Voting'].interface**= the interface or template of the contract (called "ABI") which tells the contract user what methods are available in the contract.
+= the bytecode that is the result of compiling your Voting.sol source code. This code will be deployed to the blockchain.
+
+2. **compiledCode.contracts[':Voting'].interface**
+
+= the interface or template of the contract (called "ABI") which tells the contract user what methods are available in the contract.
 
 Now your Solidity contract is well compiled, we can deploy it to the blockchain.
 
@@ -593,7 +635,7 @@ As data can be stored in the blockchain, another fun trick is searching through 
 
 Finally, if you like solving puzzles, this might be one to try. 
 
-![image alt text](image_2.jpg)
+![image alt text](image_4.jpg)
 
 This painting from artist Marguerite Christine, ([Coin_Artist on Twitter](https://twitter.com/coin_artist)) contains a series of hidden clues that together form the private key for a bitcoin wallet containing 4.7 BTC. This can be yours if you manage to solve the puzzle. Although this represented a modest amount of money in 2015 when it was created, [it now represents a prize of more than 30.000 euro](https://www.reddit.com/r/Bitcoin/comments/31bho4/new_arg_puzzle_48btc_prize/). 
 
