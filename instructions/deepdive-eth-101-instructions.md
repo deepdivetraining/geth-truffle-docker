@@ -12,4 +12,3 @@ DeepDive.training | deepdive-eth-101
 `[Table of Contents]`
 
 Let's move some money around!
-
