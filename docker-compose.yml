@@ -13,19 +13,22 @@ services:
   #     PORT: 3000
 
   geth:
-    container_name: geth
+    container_name: ropsten-container
     build: geth
     #command: '--identity ${GETH_NODE} --networkid 2017042099 --datadir "/root/.ethereum/devchain" --unlock 0,1 --password /root/.ethereum/devchain/pw --port "30303" --rpc --rpcport "8544" --rpccorsdomain "*" --rpcaddr="0.0.0.0" --rpcapi "admin,db,eth,miner,net,web3,personal,txpool" --nodiscover --minerthreads=2  --etherbase 0'
+    #
+    # --verbosity 4  -> debug messages
+    # --syncmode "fast" -> fast sync
     command: '--testnet --syncmode "light" --v5disc --datadir "/root/.ethereum/devchain" --unlock 0,1 --password /root/.ethereum/devchain/pw --rpc --rpcport 8544   --rpccorsdomain "*" --rpcaddr 0.0.0.0 --rpcapi admin,db,eth,miner,net,web3,personal,txpool --cache=1024'
     ports:
       - "8544:8544"
       - "30303:30303"
       - "30303:30303/udp"
     volumes: # blockchain + wallet will be stored here on your host
-       - geth:/root/.ethereum
+       - ropsten-container-store:/root/.ethereum
 
   truffle:
-    container_name: truffle
+    container_name: truffle-container
     build: truffle
     volumes:
       - ./dapp:/dapp
@@ -36,7 +39,7 @@ services:
     command: '-c "sleep 1d"'
 
   testrpc: # A very simple/light geth, only for testing purpose
-    container_name: testrpc
+    container_name: testrpc-container
     image: desmart/testrpc:latest
     ports:
       - "8545:8545"
@@ -67,4 +70,4 @@ services:
   #     - 3000:3000
 
 volumes:
-  geth:
+  ropsten-container-store:
