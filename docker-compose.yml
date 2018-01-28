@@ -13,19 +13,25 @@ services:
   #     PORT: 3000
 
   geth:
-    container_name: geth
+    container_name: ropsten-container
+    hostname: ropsten-container
     build: geth
     #command: '--identity ${GETH_NODE} --networkid 2017042099 --datadir "/root/.ethereum/devchain" --unlock 0,1 --password /root/.ethereum/devchain/pw --port "30303" --rpc --rpcport "8544" --rpccorsdomain "*" --rpcaddr="0.0.0.0" --rpcapi "admin,db,eth,miner,net,web3,personal,txpool" --nodiscover --minerthreads=2  --etherbase 0'
+    #
+    # --verbosity 4  -> debug messages
+    # --syncmode "fast" -> fast sync
     command: '--testnet --syncmode "light" --v5disc --datadir "/root/.ethereum/devchain" --unlock 0,1 --password /root/.ethereum/devchain/pw --rpc --rpcport 8544   --rpccorsdomain "*" --rpcaddr 0.0.0.0 --rpcapi admin,db,eth,miner,net,web3,personal,txpool --cache=1024'
+    env_file: container-prompt.env
     ports:
       - "8544:8544"
       - "30303:30303"
       - "30303:30303/udp"
     volumes: # blockchain + wallet will be stored here on your host
-       - geth:/root/.ethereum
+       - ropsten-container-store:/root/.ethereum
 
   truffle:
-    container_name: truffle
+    container_name: truffle-container
+    hostname: truffle-container
     build: truffle
     volumes:
       - ./dapp:/dapp
@@ -34,14 +40,16 @@ services:
       - "7000:8545"
     entrypoint: sh
     command: '-c "sleep 1d"'
+    env_file: container-prompt.env
 
   testrpc: # A very simple/light geth, only for testing purpose
-    container_name: testrpc
+    container_name: testrpc-container
+    hostname: testrpc-container
     image: desmart/testrpc:latest
     ports:
       - "8545:8545"
     command: '--debug --account="0xaa73b5c98e60d589e71ce7cff59c02f82e12c7ce676ee356da8e058a285ccd61,1000000000000000000000" --account="0x52f3a1fa15405e1d5a68d7774ca45c7a3c7373a66c3c44db94a7f99a22c14d28,1000000000000000000000"'
-
+    env_file: container-prompt.env
   # netstatsapi: # Collect geth data and send them to remote dashboard (netstatsfront)
   #   container_name: netstatsapi
   #   image: enettet/ethereum-netstats-api
@@ -67,4 +75,4 @@ services:
   #     - 3000:3000
 
 volumes:
-  geth:
+  ropsten-container-store:
