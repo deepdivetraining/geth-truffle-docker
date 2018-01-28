@@ -1,8 +1,9 @@
 # Copyright 2017 - Dechain User Group
 FROM ethereum/client-go:stable
 
-RUN mkdir -p /root/.ethereum/devchain
+RUN mkdir -p -v /root/.ethereum/devchain/geth
 # COPY static-nodes.json CustomGenesis.json pw /root/.ethereum/devchain/
+COPY static-nodes.json /root/.ethereum/devchain/geth/
 COPY pw /root/.ethereum/devchain/
 
 # Create 2 accounts
