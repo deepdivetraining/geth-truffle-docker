@@ -1,0 +1,26 @@
+body.container {
+  max-width: 800px;
+}
+img {
+  max-width: 100%;
+}
+.table {
+  margin-bottom:0;
+}
+.btn-primary {
+  background: #000;
+  color: #fff;
+  text-align: center;
+  line-height: 26px;
+  padding: 0 5px;
+  position: relative;
+  top: -1px;
+  width: 80px;
+  max-width: 100%;
+  font-size: 12.8px;
+  margin: 15px 0;
+  text-decoration: none;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+}
